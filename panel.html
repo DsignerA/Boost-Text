@@ -2,7 +2,7 @@
 <header><div class="brand"><span class="logo">B</span><div><strong>Boost Messaging</strong><small>Google Voice companion</small></div></div><span class="chip">Manual send</span></header>
 <main>
 <section class="stats"><div><strong id="count">0</strong><small>Contacts</small></div><div><strong id="draftCount">0</strong><small>Saved drafts</small></div></section>
-<nav class="tabs" aria-label="Views"><button class="active" data-view="compose">Compose</button><button data-view="contacts">Contacts</button><button data-view="templates">Templates</button></nav>
+<nav class="tabs" aria-label="Views"><button class="active" data-view="compose">Compose</button><button data-view="contacts">Contacts</button><button data-view="templates">Templates</button><button data-view="callLab">Call Lab</button></nav>
 <section id="compose" class="view">
   <label for="contactSelect">Customer</label><select id="contactSelect"></select>
   <div id="contactContext" class="context" hidden></div>
@@ -22,5 +22,16 @@
 <h2>Message templates</h2><p class="muted">Use <code>{name}</code> to insert the selected customer's first name.</p>
 <form id="templateForm"><label for="templateName">Template name</label><input id="templateName" required maxlength="80" placeholder="Following up"><label for="templateBody">Template text</label><textarea id="templateBody" required rows="4" placeholder="Hi {name}, ..."></textarea><button class="primary full" type="submit">Add template</button></form><div id="templateList" class="list"></div>
 </section>
+<section id="callLab" class="view" hidden>
+<h2>Call Lab — experimental</h2>
+<p class="note">Only use on consented calls in a Google Voice Chrome tab. Audio is sent to a local relay and an external transcription provider. No SMS is sent.</p>
+<label><input type="checkbox" id="consent"> All participants were informed and consented to transcription.</label>
+<label for="endpoint">Local relay</label><input id="endpoint" value="http://127.0.0.1:8790" readonly>
+<label for="token">Local relay session token</label><input id="token" type="password" autocomplete="off" placeholder="BOOST_SESSION_TOKEN">
+<div class="actions"><button class="primary" id="start">Start Listening</button><button id="stop" disabled>Stop</button><button id="export">Export transcript</button></div>
+<div id="status" role="status" aria-live="polite">Not listening</div>
+<label for="transcript">Live transcript (approx. 8-second segments)</label>
+<textarea id="transcript" rows="12" readonly placeholder="Consented test transcription appears here..."></textarea>
+</section>
 <div id="toast" role="status" aria-live="polite"></div>
-</main><script src="panel.js"></script></body></html>
+</main><script src="panel.js"></script><script src="call-lab.js"></script></body></html>
