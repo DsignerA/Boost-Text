@@ -21,7 +21,7 @@ if(req.method==='POST'&&u.pathname==='/twilio/inbound'){
  const raw=await read(req);const signature=req.headers['x-twilio-signature'];const publicUrl=(env.PUBLIC_BASE_URL||'').replace(/\/$/,'')+u.pathname;
  if(!env.TWILIO_AUTH_TOKEN||!signature||!twilio.validateRequest(env.TWILIO_AUTH_TOKEN,signature,publicUrl,Object.fromEntries(new URLSearchParams(raw))))return sendJson(res,403,{error:'Invalid Twilio signature'});
  const params=new URLSearchParams(raw);const result=engine.inbound(params.get('From'),params.get('Body'));persist();
- if(result.action){try{if(result.action==='APPROVE')await engine.approve(result.id);else engine.cancel(result.id);persist();return replyXml(res,result.action==='APPROVE'?'Approval recorded and message queued.':'Approval cancelled.');}catch(e){persist();return replyXml(res,`Unable to complete: ${e.message}`);}}
+ if(result.action){engine.log('sms_command_requires_dashboard_approval',{command:result.action,approvalId:result.id});persist();return replyXml(res,'Command received. For security, confirm this action in the authenticated dashboard/API; SMS alone cannot authorize it.');}
  return replyXml(res,result.reply);
 }
 requireAdmin(req);
