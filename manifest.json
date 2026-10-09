@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Boost Messaging Controller",
+  "description": "Customer SMS drafts, templates and contact notes with manual Google Voice sending.",
+  "version": "0.1.0",
+  "permissions": ["storage", "sidePanel"],
+  "action": {"default_title": "Open Boost Messaging"},
+  "background": {"service_worker": "background.js"},
+  "side_panel": {"default_path": "panel.html"}
+}
