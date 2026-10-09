@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boost Messaging</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div class="brand"><span class="logo">B</span><div><strong>Boost Messaging</strong><small>Google Voice companion</small></div></div><span class="chip">Manual send</span></header>
+<main>
+<section class="stats"><div><strong id="count">0</strong><small>Contacts</small></div><div><strong id="draftCount">0</strong><small>Saved drafts</small></div></section>
+<nav class="tabs" aria-label="Views"><button class="active" data-view="compose">Compose</button><button data-view="contacts">Contacts</button><button data-view="templates">Templates</button></nav>
+<section id="compose" class="view">
+  <label for="contactSelect">Customer</label><select id="contactSelect"></select>
+  <div id="contactContext" class="context" hidden></div>
+  <label for="templateSelect">Start with a template</label><select id="templateSelect"></select>
+  <label for="message">Message draft</label><textarea id="message" rows="7" maxlength="10000" placeholder="Write a customer message..."></textarea><div class="muted right"><span id="charCount">0</span> characters</div>
+  <div class="actions"><button id="saveDraft" class="secondary">Save draft</button><button id="copyMessage" class="primary">Copy message</button></div>
+  <button id="openVoice" class="full">Open Google Voice ↗</button>
+  <p class="note">Google Voice sending is done manually in the Google Voice tab. This extension never sends texts or accesses private Google Voice APIs.</p>
+  <h3>Customer notes</h3><textarea id="notes" rows="3" placeholder="Customer context, preferences, next steps..."></textarea><button id="saveNotes" class="secondary">Save notes</button>
+  <h3>Saved draft</h3><div class="draft" id="lastDraft">No saved draft for this customer.</div>
+</section>
+<section id="contacts" class="view" hidden>
+<h2>Add customer</h2><form id="contactForm"><label for="name">Name</label><input id="name" required maxlength="120" placeholder="Customer name"><label for="phone">Phone number</label><input id="phone" type="tel" required placeholder="+1 555 123 4567"><label for="tag">Tag</label><input id="tag" placeholder="Prospect, client, appointment"><button class="primary full" type="submit">Add customer</button></form>
+<label for="search">Search contacts</label><input id="search" placeholder="Search by name, phone, tag"><div id="contactList" class="list"></div>
+</section>
+<section id="templates" class="view" hidden>
+<h2>Message templates</h2><p class="muted">Use <code>{name}</code> to insert the selected customer's first name.</p>
+<form id="templateForm"><label for="templateName">Template name</label><input id="templateName" required maxlength="80" placeholder="Following up"><label for="templateBody">Template text</label><textarea id="templateBody" required rows="4" placeholder="Hi {name}, ..."></textarea><button class="primary full" type="submit">Add template</button></form><div id="templateList" class="list"></div>
+</section>
+<div id="toast" role="status" aria-live="polite"></div>
+</main><script src="panel.js"></script></body></html>
